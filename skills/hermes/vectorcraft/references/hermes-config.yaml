@@ -1,0 +1,32 @@
+# Drop into ~/.hermes/config.yaml. Replace the command path.
+# Headless is the default for agents. For a live window, start
+#   cargo run --release -p vectorcraft -- --control 7979
+# and change args to ["mcp", "--connect", "127.0.0.1:7979"].
+mcp_servers:
+  vectorcraft:
+    command: "/absolute/path/to/vectorcraft/target/release/vectorcraft-cli"
+    args: ["mcp", "--headless"]
+    timeout: 180
+    tools:
+      include:
+        - list_commands
+        - run_command
+        - inspect_document
+        - select_tool
+        - pointer_gesture
+        - draw_path
+        - draw_shape
+        - set_paint
+        - press_key
+        - screenshot
+        - open_file
+        - save_file
+        - export
+        - add_text
+        - apply_effect
+        - pathfinder
+        - transform
+        - create_graph
+        - text_wrap
+        - undo
+        - redo
