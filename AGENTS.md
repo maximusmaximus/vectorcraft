@@ -50,6 +50,12 @@ Formerly **DrawCraft** (renamed 2026-10-01): old `.drawcraft` files and `"format
 - Shell gotcha: `mv`/`cp` are aliased interactive here — use `/bin/mv -f` / `/bin/cp -f`.
 - Parallel agents: separate `CARGO_TARGET_DIR` per agent; edit only the crates you own; write manifests atomically. Each target dir grows to ~30 GB: delete yours when you finish (a full disk fails links with `errno=28`).
 
+## Vector Illustration Generation & Prompt Upscaling (MCP)
+- When generating complex artwork via VectorCraft MCP (`draw_path`, `draw_shape`, `pathfinder`, `set_paint`), always preprocess raw creative prompts through the **VectorCraft Prompt Upscaler** (`packages/vectorcraft_upscaler/` or skill `vectorcraft-upscaler`).
+- The upscaler resolves an XL reasoning model to generate an exhaustive blueprint with exact cubic Bezier path data (`M ... C ... Z`), 5-swatch palettes with hex codes, and layer hierarchies.
+- **Batch your commands:** Do not execute piecemeal single-shape calls or exploratory probes. Execute the upscaler's batch execution plan in 3-5 cohesive turns.
+- See [`HERMES.md`](HERMES.md) for full skill setup and configuration.
+
 ## Roadmap
 `ROADMAP.md` (committed) is the shared picture of where VectorCraft stands. It holds status, the honest assessment (by dimension, the gap list, the direction), milestones, the parity table and time-to-parity estimates.
 - When a task lands, update it in the same PR: the milestone row, the parity-table row (score, missing items, hours), "Shipped so far", and the gap list if the gap closed or shrank.

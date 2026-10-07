@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vectorcraft-upscaler"
+version = "1.0.0"
+description = "Autonomous High-Power Prompt Upscaling and Architecture Blueprint Engine for VectorCraft MCP"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "Maximus", email = "max@storytold.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Software Development :: Code Generators",
+]
+
+[project.scripts]
+vectorcraft-upscale = "vectorcraft_upscaler.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["vectorcraft_upscaler*"]

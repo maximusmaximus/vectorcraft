@@ -196,8 +196,8 @@ and `apps/{vectorcraft, vectorcraft-cli, vectorcraft-web}`. The egui frontend is
 the UI can be swapped without touching the engine.
 
 Agent and contributor rules (clean-room, the asset policy, no panics in shipped code, quality gates) are in
-[`AGENTS.md`](AGENTS.md); [`docs/development.md`](docs/development.md#robustness-vectorcraft-never-crashes)
-explains how VectorCraft avoids crashing. Every bundled asset is listed with its licence in [`ASSETS.md`](ASSETS.md).
+[`AGENTS.md`](AGENTS.md). Hermes Agent integration, bundled skills, and the High-Power Prompt Upscaler are documented in [`HERMES.md`](HERMES.md).
+[`docs/development.md`](docs/development.md#robustness-vectorcraft-never-crashes) explains how VectorCraft avoids crashing. Every bundled asset is listed with its licence in [`ASSETS.md`](ASSETS.md).
 
 ## The Crafting Apps
 

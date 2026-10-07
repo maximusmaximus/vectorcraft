@@ -78,6 +78,7 @@ mkdir -p ~/.hermes/skills/creative
 cp -R skills/hermes/vectorcraft ~/.hermes/skills/creative/vectorcraft
 cp -R skills/hermes/vectorcraft-draw ~/.hermes/skills/creative/vectorcraft-draw
 cp -R skills/hermes/vectorcraft-export ~/.hermes/skills/creative/vectorcraft-export
+cp -R skills/hermes/vectorcraft-upscaler ~/.hermes/skills/creative/vectorcraft-upscaler
 ```
 
 Or, if your Hermes build supports path install:
@@ -86,6 +87,7 @@ Or, if your Hermes build supports path install:
 hermes skills install ./skills/hermes/vectorcraft
 hermes skills install ./skills/hermes/vectorcraft-draw
 hermes skills install ./skills/hermes/vectorcraft-export
+hermes skills install ./skills/hermes/vectorcraft-upscaler
 ```
 
 Skills:
@@ -95,6 +97,34 @@ Skills:
 | `vectorcraft` | Any VectorCraft / MCP session: connect, inspect, command catalogue |
 | `vectorcraft-draw` | Drawing, paint, type, Pathfinder, transforms, effects |
 | `vectorcraft-export` | Open, save, export SVG/PDF/PNG and visual QA via screenshot |
+| `vectorcraft-upscaler` | High-power XL prompt upscaling: converts raw creative prompts into exact vector specs |
+
+## High-Power Prompt Upscaling (XL Reasoning Tier)
+
+To avoid exploratory tool thrashing and minimize back-and-forth roundtrips over MCP, VectorCraft includes a specialized Prompt Upscaler package (`packages/vectorcraft_upscaler/`).
+
+### How It Works
+
+1. **Periodic Best-Model Resolution**: The upscaler dynamically queries the provider's `/models` endpoint on a configurable TTL cycle (default: 3600s / 1 hour) to identify the highest-scoring reasoning/coding model in the requested tier (e.g. `xl` tier: Moonshot Kimi K3, Claude Opus 5, Grok 4.20, DeepSeek V4 Pro).
+2. **VectorCraft Architecture Specification**: The resolved model transforms brief user ideas into comprehensive specifications with exact SVG cubic Bezier anchors (`M ... C ... S ... Z`), geometric coordinates, 5-swatch palettes with hex codes, and 5-turn MCP batch execution plans.
+3. **Turn Minimization**: Equips the downstream executor to execute vector construction in 3-5 cohesive turns rather than 20+ piecemeal queries.
+
+### Configuration
+
+Set standard environment variables in your Hermes or system environment:
+
+```sh
+export UPSCALER_API_KEY="your-api-key"             # Provider API key
+export UPSCALER_BASE_URL="https://api.venice.ai/api/v1" # OpenAI/Venice endpoint
+export UPSCALER_TIER="xl"                           # Target tier: xl, l, m, s
+export UPSCALER_CACHE_TTL="3600"                    # Model refresh TTL in seconds
+```
+
+### Direct CLI Usage
+
+```sh
+python3 packages/vectorcraft_upscaler/cli.py "draw an art deco badge" --tier xl
+```
 
 Protocol details remain in [`docs/mcp.md`](docs/mcp.md) and [`docs/control-protocol.md`](docs/control-protocol.md).
 
